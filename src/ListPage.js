@@ -11,14 +11,14 @@ export default function ListPage() {
       const fetchedGames = await getGames();
 
       setGames(fetchedGames);
-      console.log(fetchedGames);
+  
 
 
     }
 
     fetch();
   }, []);
-  console.log(games);
+ 
 
 
 
