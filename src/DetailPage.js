@@ -56,6 +56,13 @@ export default function CreatePage() {
   }
 
   return (
+    <><div className='detail'>
+      <p>test</p>
+      <h3>{title}</h3>
+      <p>A {genre} game by designer {designer}</p>
+      <p>{description}</p>
+      <p>for {minPlayers} - {maxPlayers} players</p>
+    </div>
     <div className='create'>
       {/* on submit, call your handleSubmit function */}
       <form onSubmit={handleSubmit}>
@@ -98,8 +105,8 @@ export default function CreatePage() {
           {/* on change, set the description in state */}
           <textarea required value={description} onChange={e => setDescription(e.target.value)} name='max_players' />
         </label>
-        <button>Create game</button>
+        <button>Update game</button>
       </form>
-    </div>
+    </div></>
   );
 }
