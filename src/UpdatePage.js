@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
-import { updateGame, getGameById } from './services/fetch-utils';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useState } from 'react';
+import { createGame } from './services/fetch-utils';
+import { useHistory } from 'react-router-dom';
 
 export default function CreatePage() {
   // you'll need the history hook from react-router-dom to do your redirecting in the handleSubmit
   const history = useHistory();
-  const match = useRouteMatch();
 
   // here's the state you'll need:
     // title;
@@ -20,30 +19,12 @@ export default function CreatePage() {
   const [description, setDescription] = useState('');
   const [minPlayers, setMinPlayers] = useState(1);
   const [maxPlayers, setMaxPlayers] = useState(1);
-  const gameID = match.params.id;
-
-  useEffect(() => {
-    async function fetch() {
-      const gameResponse = await getGameById(match.params.id);
-
-      setTitle(gameResponse.title);
-      setGenre(gameResponse.genre);
-      setDesigner(gameResponse.designer);
-      setDescription(gameResponse.description);
-      setMinPlayers(gameResponse.minPlayers);
-      setMaxPlayers(gameResponse.maxPlayers);
-
-    }
-
-    fetch();
-  }, [match]);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     // create a game
-    await updateGame({
-      gameID,
+    await createGame({
       title,
       genre,
       designer,
@@ -56,26 +37,19 @@ export default function CreatePage() {
   }
 
   return (
-    <><div className='detail'>
-      <p>test</p>
-      <h3>{title}</h3>
-      <p>A {genre} game by designer {designer}</p>
-      <p>{description}</p>
-      <p>for {minPlayers} - {maxPlayers} players</p>
-    </div>
     <div className='create'>
       {/* on submit, call your handleSubmit function */}
       <form onSubmit={handleSubmit}>
-        <h2>Update board game</h2>
+        <h2>Add board game</h2>
         <label>
             Title
           {/* on change, set the title in state */}
-          <input required value={title} onChange={e => setTitle(e.target.value)} name='title' />
+          <input required onChange={e => setTitle(e.target.value)} name='title' />
         </label>
         <label>
             Genre
           {/* on change, set the genre in state */}
-          <select required value={genre} onChange={e => setGenre(e.target.value)}>
+          <select required onChange={e => setGenre(e.target.value)}>
             <option>Tile-laying</option>
             <option>Economic</option>
             <option>War</option>
@@ -88,25 +62,25 @@ export default function CreatePage() {
         <label>
             Designer
           {/* on change, set the designer in state */}
-          <input required value={designer} onChange={e => setDesigner(e.target.value)} name='designer' />
+          <input required onChange={e => setDesigner(e.target.value)} name='designer' />
         </label>
         <label>
             Min Players
           {/* on change, set the min players in state */}
-          <input required value={minPlayers} onChange={e => setMinPlayers(e.target.value)} name='min_players' />
+          <input required onChange={e => setMinPlayers(e.target.value)} name='min_players' />
         </label>
         <label>
             Max Players
           {/* on change, set the max players in state */}
-          <input required value={maxPlayers} onChange={e => setMaxPlayers(e.target.value)} name='max_players' />
+          <input required onChange={e => setMaxPlayers(e.target.value)} name='max_players' />
         </label>
         <label>
             Description
           {/* on change, set the description in state */}
-          <textarea required value={description} onChange={e => setDescription(e.target.value)} name='max_players' />
+          <textarea required onChange={e => setDescription(e.target.value)} name='max_players' />
         </label>
-        <button>Update game</button>
+        <button>Create game</button>
       </form>
-    </div></>
+    </div>
   );
 }
