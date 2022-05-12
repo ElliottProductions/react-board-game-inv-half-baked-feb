@@ -24,7 +24,6 @@ export default function ListPage() {
 
   return (
     <div className='list games'>
-      <p>yooooo</p>
       {games.map(game => <Game key={game.id} game={game}/>)}
     </div>
   );
