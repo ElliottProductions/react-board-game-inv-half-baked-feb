@@ -40,7 +40,7 @@ export default function CreatePage() {
     <div className='create'>
       {/* on submit, call your handleSubmit function */}
       <form onSubmit={handleSubmit}>
-        <h2>Add board game</h2>
+        <h2>Add a new board game</h2>
         <label>
             Title
           {/* on change, set the title in state */}
